@@ -1,8 +1,9 @@
 import configparser
-import os
 import logging
-import pandas as pd
+import os
 from datetime import datetime
+
+import pandas as pd
 
 reader = configparser.ConfigParser()
 reader.read("config.ini")
@@ -16,8 +17,7 @@ PRIMARY_KEY = reader.get("JENKINS", "PRIMARY_KEY")
 META_COLS = ['_class', 'actions', 'artifacts', 'building', 'description',
              'displayName', 'duration', 'estimatedDuration', 'executor',
              'fullDisplayName', 'id', 'keepLog', 'number', 'queueId', 'result',
-             'timestamp', 'url', 'builtOn', 'changeSet', 'culprits',
-             'changeSets', 'nextBuild', 'previousBuild']
+             'timestamp', 'url', 'builtOn', 'culprits']
 
 LOGS_COLS = ['fullDisplayName', 'timestamp', 'consoleText']
 FULL_PATH_COL = "fullPath"
