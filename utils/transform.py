@@ -157,8 +157,11 @@ def process_culprits(meta_df):
 
 def extract_TimeInQueueAction(df: pd.DataFrame):
     def extract_helper(col_value):
+        col_list = []
         if type(col_value) is str:
             col_list = eval(col_value)
+        elif type(col_value) is list:
+            col_list = col_value
         TimeInQueueAction = [l for l in col_list if l.get("_class", "") == "jenkins.metrics.impl.TimeInQueueAction"]
         return TimeInQueueAction[0] if len(TimeInQueueAction) != 0 else {}
 
@@ -179,7 +182,7 @@ def flatten_TimeInQueueAction(df: pd.DataFrame):
                 del (col_value["_class"])
             new_cols = col_value
         if len(new_cols) != len(TIME_IN_QUEUE_ACTION_KEYS):
-            logging.logger.warning(f"Length of new cols is not the same as TIME_IN_QUEUE_ACTION_KEYS: {col_value}")
+            logging.warning(f"Length of new cols is not the same as TIME_IN_QUEUE_ACTION_KEYS: {col_value}")
             new_cols = default_value
         return new_cols
 
